@@ -1,0 +1,44 @@
+Overview:
+
+The purpose of this project was to exam how we the students think, identify our level of proficiency and our ability to research concepts and implement them in a project.
+
+We had two projects:
+
+Project One involved taking a bit of our teacher's app and modifying the input field to allow for a user to submit items to be added to the html via pressing enter while typing.
+
+Project Two involved creating a quiz game in which we had to:
+  Bring in data with an ajax call to bring data in.
+  Implement drag and drop functionality.
+  Implement an undo button.
+  Time how long the test takes.
+  And calculate score
+
+Constraints:
+
+None of the students were allowed to use external libraries or frameworks. We could only use the framework provided by  the teacher.
+
+Extra Points
+  Have the game go up to at least 5 rounds
+
+Background
+  I am a full stack developer with about 4 months of experience with HTML, CSS, and JavaScript. I have not used these skills in a nearly a year, and most of my previous training used JQuery and CSS Bootstrap.
+
+  Considering the time constraints of the assignment. I attempted to break down most of the smaller pieces of code that needed to be completed down into smaller conceptual bits. I often wrote down my process and later implemented them. In some cases I created a proof of concept piece.
+
+Potential Improvements
+  I wish I had made my own front end. I instead defaulted to the template provided. It was not a wrong decision (as it helped to speed up work), but I would have preferred to experiment with it on my own, but that would have taken too much time.
+
+  I've got comment out code that should have been eliminated after finishing. But it is nearly 3 am in the morning right now.
+
+  I Would also have created more POCs to better break down the functionality and have reusable code for later.
+
+  I also should have take time to learn the framework provided. I only did some minor tinkering adding a method for generating random numbers with in a range I decide.
+
+
+Conclusion
+
+  This project was fun, but a valuable lesson was learned. My bullish nature of staying too focused on a task needs to reigned in. I noticed times of my most explosive progress occurred when I used POC to prove concepts and modify code to fit what I needed.
+
+  I also feel more confident with manipulating the front end. Before I was always cautious about working with the front end because the means of containing data are more abstracted to the page as opposed to a JSON format. DOM manipulation feels much more natural.
+
+  
