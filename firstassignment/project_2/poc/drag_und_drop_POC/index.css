@@ -1,0 +1,17 @@
+.box{
+  box-sizing: border-box;
+  width: 200px;
+  border: solid #5B6DCD 10px;
+  padding: 5px;
+  background-color: #444444;
+	margin: 20px;
+}
+h1{
+  color: white;
+}
+#initBox{
+  flaot: left;
+}
+#targetBox{
+  flaot: right;
+}
