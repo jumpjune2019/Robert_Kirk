@@ -1,7 +1,6 @@
 package phone;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -54,7 +53,7 @@ public class Formater {
 			}
 			fr.close();
 		}catch(IOException ioe) {
-			File file = new File(path);
+			//File file = new File(path);
 			this.writeHeader(path);
 		}
 		try {
