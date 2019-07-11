@@ -7,6 +7,7 @@ class ReportThread implements Runnable {
 
 	   public ReportThread( String name) {
 	      threadName = name;
+	      
 	      System.out.println("Creating " +  threadName );
 	      start();
 	   }
@@ -58,4 +59,4 @@ class ReportThread implements Runnable {
 		
 		return this.threadName;
 	}
-	}
+}

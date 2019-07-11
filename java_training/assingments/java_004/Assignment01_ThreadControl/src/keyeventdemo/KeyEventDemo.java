@@ -103,7 +103,9 @@ public class KeyEventDemo extends JFrame
         
         ThreadFactory fact = new ThreadFactory();
         for(int i = 0; i<5; i++) {
-        	bundle.add(fact.generateThreads(i));
+        	ReportThread a = fact.generateThreads(i);
+        	
+        	bundle.add(a);
         }
 
     }
