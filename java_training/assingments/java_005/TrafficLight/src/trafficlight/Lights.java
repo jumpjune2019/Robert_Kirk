@@ -1,7 +1,9 @@
 package trafficlight;
 
+//Enum contains info on how each light should behave
 public enum Lights {
 	
+	//Defining of the lights
 	Green("Light is Green - Go!", 0), 
 	Yellow("Light is Yellow - Beware!", 5000), 
 	Red("Light is Red - Stop!", 7000);
