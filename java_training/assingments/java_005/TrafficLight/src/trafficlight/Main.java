@@ -14,7 +14,7 @@ public class Main {
 		LightThread red = new LightThread(Lights.Red);
 		System.out.println("Please enter to start the lights. Then press enter to stop them");
 		try {
-		    //String str = "Light Trigger";
+		    
 		    boolean notStarted = lightSystem.getInput();
 		    
 		    while(!green.isSuspended()) {		    
