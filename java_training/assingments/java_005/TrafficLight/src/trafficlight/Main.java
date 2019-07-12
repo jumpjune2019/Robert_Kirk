@@ -9,22 +9,29 @@ public class Main {
 	public static void main(String[] args) {
 		
 		LightController lightSystem = new LightController();
-		LightThread thread = new LightThread("Lights");
-		
+		LightThread green = new LightThread(Lights.Green);
+		LightThread yellow = new LightThread(Lights.Yellow);
+		LightThread red = new LightThread(Lights.Red);
+		System.out.println("Please enter to start the lights. Then press enter to stop them");
 		try {
 		    //String str = "Light Trigger";
 		    boolean notStarted = lightSystem.getInput();
 		    
-		    while(!thread.isSuspended()) {		    
+		    while(!green.isSuspended()) {		    
 		    	
 		    	if(notStarted) {
 		    		notStarted = false;
-		    		thread.start();
+		    		green.start();
+		    		yellow.start();
+		    		red.start();
 		    	}else {
 		    		
 		    		boolean b = lightSystem.getInput();
 		    		if(b) {
-		    			thread.suspend();
+		    			green.suspend();
+		    			yellow.suspend();
+		    			red.suspend();
+		    			System.out.println("Traffic Light Simulator is Done!");
 		    			
 		    		}		    		
 		    	}		    	
@@ -33,6 +40,7 @@ public class Main {
 		catch( IOException e ) {
 		    System.err.println( "Error: " + e );
 		}
+		
 		
 		
 

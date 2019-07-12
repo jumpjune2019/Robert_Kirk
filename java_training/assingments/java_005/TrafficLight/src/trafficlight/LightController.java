@@ -47,7 +47,7 @@ public class LightController {
 	}
 	public boolean getInput() throws IOException {
 		
-		System.out.println("getting scanner input");
+		//System.out.println("getting scanner input");
 		Scanner br = new Scanner(System.in);
 		br.nextLine();
 		//System.out.println(input);
