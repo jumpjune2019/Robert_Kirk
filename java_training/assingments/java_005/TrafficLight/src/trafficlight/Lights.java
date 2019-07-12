@@ -1,7 +1,5 @@
 package trafficlight;
 
-import java.util.concurrent.TimeUnit;
-
 public enum Lights {
 	
 	Green(5, "Light is Green - Go!"), 
@@ -21,14 +19,14 @@ public enum Lights {
 	public String getMessage() {
 		return message;
 	}
-	public static void setTimer(int seconds) {
-		try {
-			TimeUnit.SECONDS.sleep(Lights.Green.getTime());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	public static void setTimer(int seconds) {
+//		try {
+//			TimeUnit.SECONDS.sleep(Lights.Green.getTime());
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	
 

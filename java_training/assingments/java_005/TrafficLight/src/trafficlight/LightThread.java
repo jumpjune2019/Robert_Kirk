@@ -1,6 +1,6 @@
 package trafficlight;
 
-
+import java.util.concurrent.TimeUnit;
 
 public class LightThread implements Runnable{
 		public Thread t;
@@ -19,18 +19,23 @@ public class LightThread implements Runnable{
 			//System.out.println("Traffic Light Simulator is a Go!");					
 			while(!suspended) {
 				
-				
-				if(this.lastSignal.equals("red")) {
-					System.out.println(Lights.Green.getMessage());
-					Lights.setTimer(Lights.Green.getTime());
-				}else if(this.lastSignal.equals("green")) {
-					System.out.println(Lights.Yellow.getMessage());
-					Lights.setTimer(Lights.Yellow.getTime());
-				}else {
-					System.out.println(Lights.Red.getMessage());
-					Lights.setTimer(Lights.Red.getTime());
+				try {
+					if(this.lastSignal.equals("red")) {
+						System.out.println(Lights.Green.getMessage());
+						TimeUnit.SECONDS.sleep(Lights.Green.getTime());
+						
+					}else if(this.lastSignal.equals("green")) {
+						System.out.println(Lights.Yellow.getMessage());
+						TimeUnit.SECONDS.sleep(Lights.Yellow.getTime());
+					}else {
+						System.out.println(Lights.Red.getMessage());
+						TimeUnit.SECONDS.sleep(Lights.Red.getTime());
+					}
+					this.lightChange();
+				}catch (Exception e) {
+					e.printStackTrace();
 				}
-				this.lightChange();					
+									
 			}
 			
 	   }
