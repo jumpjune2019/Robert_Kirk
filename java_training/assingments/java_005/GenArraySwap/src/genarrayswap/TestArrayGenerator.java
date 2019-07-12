@@ -11,9 +11,11 @@ public class TestArrayGenerator<T> {
 	public String[] stringArr(int i) {
 		return new String[i];
 	}
+	@SuppressWarnings("hiding")
 	public <T extends Number> void populateMathVal(T t) {
 		
 	}
+	@SuppressWarnings("hiding")
 	public <T extends Number> boolean comapreArrays(Integer[] intArray, Object[] objects) {
 		
 		for(int i = 0; i<objects.length; i++) {

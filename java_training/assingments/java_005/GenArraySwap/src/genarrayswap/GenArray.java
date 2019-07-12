@@ -6,15 +6,7 @@ public class GenArray<T> {
 	
 	public GenArray(T[] arg){
 		this.t = arg;
-	}
-
-	public T[] getT() {
-		return t;
-	}
-
-	public void setT(T[] t) {
-		this.t = t;
-	}
+	}	
 	
 	public void exchangeVals(int placeA, int placeB) {
 		T temp = this.t[placeA];
@@ -24,6 +16,13 @@ public class GenArray<T> {
 	
 	public void placeValue(T t, int place) {
 		this.t[place] = t; 
+	}
+	public T[] getT() {
+		return t;
+	}
+
+	public void setT(T[] t) {
+		this.t = t;
 	}
 	
 	@Override
