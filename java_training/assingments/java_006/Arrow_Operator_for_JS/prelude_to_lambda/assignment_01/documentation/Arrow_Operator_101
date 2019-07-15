@@ -1,0 +1,48 @@
+# Key Features of arrow operator:
+
+## example:
+
+### var x = ()=>return "x";
+### let y = ()=> strawberryColor = "red";
+### const z = ()=> {
+###  //insert code
+### }
+
+1. Uses the => token.
+2. The functions are considered anonymous.
+3. Avoids having to type the function keyword.
+4. return keyword is implicit.
+5. curly braces are implicit.
+6. Parentheses are required when no parameters are present.
+7. Arrow function do not have "this"
+8. Because the don't have "this", call() and apply() only pass parameters.
+9. function and return are implicit.
+10. The yield keyword may not be used in an arrow function's body (except when permitted within functions further nested within it). As a consequence, arrow functions cannot be used as generators.
+
+## Pros:
+
+1. Good at manipulating arrays
+2. When using promises, these function expressions will be used for chaining.
+
+### Pros From  ~~Geeks for Geeks~~:
+#### 1. Reduces Code Size:
+As we have replaced the function by corresponding arrow operator so the size of
+the code is reduced and we have to write less amount of code for same work.
+That’s why I love the arrow operator method of defining functions.
+#### 2. Drop the Function braces for one line Functions:
+We can drop the braces of the function in arrow operator declaration
+#### 3. No need to define return statement in one line Functions:
+In ES5 you have to define the return statement in the functions and if in ES6 we do
+not define the return statement then ES6 automatically returns the value whenever
+given function is called.
+#### 4. Lexically bind the context :
+Arrow operator lexically binds the context so this refers to the originating context.
+It means that it uses this from the arrow functions.
+
+## Cons:
+
+1. Arrow operations are **not good** for methods.
+2. **Cannot** be used for constructors because you can't use the *new* keyword.
+3. Arrow function do not have **its own** "this".
+4. Because the don't have "this", call() and apply() only pass parameters.
+5. Does not have arguments object.
