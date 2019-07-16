@@ -5,7 +5,7 @@
 		<link rel='stylesheet' href='css/demo.css' />
 		<script type='text/javascript' src='js/demo.js'></script>
 		<script type='text/javascript'>
-			$.ready(function() {
+			$.ready(()=> {
 				$.get('title').innerHTML = $.string.format("Animation Demo version {0}", $.getVersion());
 				var childBox = $.get('child-box');
 				var parentBox = $.get('parent-box');
@@ -14,8 +14,8 @@
 					container: parentBox, // if null, then body
 					start: "tl", // or [x, y]
 					end: "br" // or [x, y]
-				});		
-						
+				});
+
 				$.addEvent($.get('btn'), 'click', function() {
 					if(this.value == "start") {
 						this.value = "pause";
@@ -30,7 +30,7 @@
 					}
 				});
 			});
-		</script>		
+		</script>
 	</head>
 	<body>
 		<div id='container'>
@@ -40,7 +40,7 @@
 			</div>
 			<div>
 				<input type='button' value='start' id='btn' />
-			</div>	
+			</div>
 		</div>
 	</body>
 </html>

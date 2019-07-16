@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Arrow Operator / Closure in (ES6)</title>
+		<script>
+		
+			window.onload = init();
+
+			function init() {
+				var scope = {
+					foo: "bar"
+				}
+				var ctrl = (function() {
+					// this is a closure using typical anonymous callback
+					console.log('self starting in a simple closure without arrow operator with foo value of: ' + this.foo);
+				}.bind(scope))();
+
+				var ctrl2 = ((scope) => {
+					console.log('self starting in a simple closure with arrow operator with foo value of: ' + scope.foo);
+				})(scope);
+				
+			}
+		
+		</script>
+	</head>
+	<body>
+		<h1>Arrow Operator / Closure in (ES6)</h1>
+		<p>Use the browser's debugger to view the js executing</p>
+	</body>
+</html>
