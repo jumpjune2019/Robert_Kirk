@@ -2,6 +2,8 @@ var Controller = (function() {
 
 	var addButtonClickEvent = function(textTrigger, event) {
 		var model = this;
+		console.log(model);
+
 		var value = textTrigger.value.trim();
 		if(value.length) {
 			if(model.notDuplicate(value)) {
@@ -23,14 +25,23 @@ var Controller = (function() {
 		}
 	};
 
-	var deleteButtonClickEvent = function(event) {
+	var deleteButtonClickEvent = function (event){
 		var model = this;
+
 		if(event.target.type == "button") {
 			model.Delete(event.target.value);
 
 		}
 
 	}
+	/*
+		var deleteButtonClickEvent = ((event, constructor)=>{
+			var model = constructor.model;
+			if(event.target.type =="button"){
+				model.Delete(event.target.value);
+			}
+		})(event, constructor)
+	*/
 
 	var constructor = function() {
 
@@ -60,12 +71,42 @@ var Controller = (function() {
 			// the callback gets the addButton, if keyCode == 13, addButton's click() method gets invoke in the callback.
 			textTrigger.addEventListener("keypress", addTextTriggerKeypressEvent.bind(model, addButton));
 
-			var listViewEl = scopeEl.getElementsByClassName('listWrapper')[0];
-			listViewEl.addEventListener("click", deleteButtonClickEvent.bind(model));
 
+			// var deletethings = ((model)=>{
+			// 	deleteButtonClickEvent();
+			// })(model);
+
+
+
+			var listViewEl = scopeEl.getElementsByClassName('listWrapper')[0];
+			//listViewEl.addEventListener("click", (e)=>{this.deleteButtonClickEvent(e)});
+			//listViewEl.addEventListener("click", (e, model)=>{deleteButtonClickEvent(e)(model)});
+			//listViewEl.addEventListener("click", ((model, event)=>{deleteButtonClickEvent(event);})(model));
+			listViewEl.addEventListener("click", deleteButtonClickEvent.bind(model));
+			//listViewEl.addEventListener("click", deleteButtonClickEvent2);
+			//(scope) => { deleteButton();})(scope)
 		};
 
-	};
+		/*
+		var scope = {
+			foo: "bar"
+		}
+		var ctrl = (function() {
+			// this is a closure using typical anonymous callback
+			console.log('self starting in a simple closure without arrow operator with foo value of: ' + this.foo);
+		}.bind(scope))();
+
+		var ctrl2 = ((scope) => {
+			console.log('self starting in a simple closure with arrow operator with foo value of: ' + scope.foo);
+		})(scope);
+		*/
+		// ((e, scope)=>{
+		// 	deleteButtonClickEvent(e);
+		// })(model);
+
+
+
+	}
 
 	return new constructor();
 
