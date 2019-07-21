@@ -9,8 +9,7 @@ public class Main {
 		// here's the part where the JFrame gets actually centered
 		frm.setLocationRelativeTo(null);
 	}
-
-	public static JFrame setFrameStuff(JFrame frm, int onExit, int width, int height) {
+	public static JFramShaper shaping = (JFrame frm, int onExit, int width, int height)->{
 		// this will center and size the JFrame on screen
 		// it will have a height and width of half the screen
 		centerAndSizeJFrameOnScreen(frm, width, height);
@@ -30,7 +29,7 @@ public class Main {
 		frm.add(panel1);
 		frm.add(panel2);
 		return frm;
-	}
+	};
 	
 	public static void main(String args[]) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -39,8 +38,8 @@ public class Main {
 			
 			public void run() {
 				demo = new SwingDemo("Playing with JButton using a FlowLayout");
-				frm = demo.getFrame();
-				frm = setFrameStuff(frm, JFrame.EXIT_ON_CLOSE, 400, 380);
+				frm = demo.distributing.getJFrame();
+				frm = shaping.modifier(frm, JFrame.EXIT_ON_CLOSE, 400, 380);
 				frm.setVisible(true);
 			}
 		});

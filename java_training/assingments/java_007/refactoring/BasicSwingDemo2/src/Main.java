@@ -47,7 +47,7 @@ public class Main {
 			JFrame frm;
 			public void run() {
 				demo = new SwingDemo("Centered JFrame");
-				frm = demo.getFrame();
+				frm = demo.distributing.getJFrame();
 				frm = setFrameStuff(frm, JFrame.EXIT_ON_CLOSE, "My label in a centered JFrame");
 				frm.setVisible(true);
 			}

@@ -1,8 +1,7 @@
 // A simple Swing Program
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 public class Main {
 	public static void centerAndSizeJFrameOnScreen(JFrame frm, int width, int height) {
 		// set the size of the frame to half in width and height
@@ -19,19 +18,24 @@ public class Main {
 		MyLabel tempLabel;
 		for(LabelsEnum le : LabelsEnum.values()) {
 			tempLabel = new MyLabel();
-			myLabels[count] = tempLabel.setLabel(le.getLabel(), le.getPosition(), frm);
+			myLabels[count] = tempLabel.labelAdding.addLabel(le.returnLabel.stringTransfer(), le.returnPosition.stringTransfer(), frm);
 			count++;
 		}
 	}
-	
-	public static JFrame setFrameStuff(JFrame frm, int onExit, int width, int height) {
-		// this will center and size the JFrame on screen
-		// it will have a height and width of half the screen
+	public static JFramShaper shaping = (JFrame frm, int onExit, int width, int height)->{
 		centerAndSizeJFrameOnScreen(frm, 400, 400);
 		frm.setDefaultCloseOperation(onExit);
 		setLabelsToFrame(frm);
 		return frm;
-	}
+	};
+//	public static JFrame setFrameStuff(JFrame frm, int onExit, int width, int height) {
+//		// this will center and size the JFrame on screen
+//		// it will have a height and width of half the screen
+//		centerAndSizeJFrameOnScreen(frm, 400, 400);
+//		frm.setDefaultCloseOperation(onExit);
+//		setLabelsToFrame(frm);
+//		return frm;
+//	}
 	
 	public static void main(String args[]) {
 
@@ -41,8 +45,8 @@ public class Main {
 			
 			public void run() {
 				demo = new SwingDemo("Centered JFrame 400 by 200 with 5 labels");
-				frm = demo.getFrame();
-				frm = setFrameStuff(frm, JFrame.EXIT_ON_CLOSE, 400, 200);
+				frm = demo.distributing.getJFrame();
+				frm = shaping.modifier(frm, JFrame.EXIT_ON_CLOSE, 400, 200);
 				frm.setVisible(true);
 			}
 		});

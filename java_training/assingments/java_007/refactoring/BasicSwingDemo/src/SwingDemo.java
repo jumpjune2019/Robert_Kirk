@@ -7,7 +7,10 @@ class SwingDemo {
 		// Create a new JFrame container.
 		jfrm = new JFrame(title);
 	}
-	public JFrame getFrame() {
-		return jfrm;
-	}
+	
+	JFrameDistributor distributing = ()->this.jfrm;
+	
+//	public JFrame getFrame() {
+//		return jfrm;
+//	}
 }

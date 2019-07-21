@@ -46,7 +46,7 @@ public class Main {
 			JFrame frm;
 			public void run() {
 				demo = new SwingDemo("Demo 1");
-				frm = demo.getFrame();
+				frm = demo.distributing.getJFrame();
 				frm = setFrameStuff(frm, 375, 100, JFrame.EXIT_ON_CLOSE, "My label");
 				frm.setVisible(true);
 			}

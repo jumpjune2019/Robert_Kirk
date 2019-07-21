@@ -15,6 +15,8 @@ enum LabelsEnum {
 		label = l;
 		position = p;
 	}
+	StringReturner returnLabel = ()->label;
+	StringReturner returnPosition = ()->position;
 
 	String getLabel() {
 		return label;

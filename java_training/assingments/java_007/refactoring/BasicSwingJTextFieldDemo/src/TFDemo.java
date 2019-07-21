@@ -54,7 +54,7 @@ class TFDemo implements ActionListener {
 			
 			case "myTF":
 				String t = jtf.getText();
-				if(t.isEmpty() || t.isBlank()) {
+				if(t.isEmpty()) {
 					jlabContents.setText("Shooting blank here buddy!");	
 				} else {
 					jlabContents.setText("You pressed ENTER. Text is: " + jtf.getText());

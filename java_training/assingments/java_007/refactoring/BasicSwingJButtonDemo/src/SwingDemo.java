@@ -8,7 +8,9 @@ class SwingDemo {
 		jfrm = new JFrame(title);
 		jfrm.setLayout(new BoxLayout(jfrm.getContentPane(), BoxLayout.Y_AXIS));
 	}
-	public JFrame getFrame() {
-		return jfrm;
-	}
+	JFrameDistributor distributing = () -> this.jfrm;
+
+//	public JFrame getFrame() {
+//		return jfrm;
+//	}
 }

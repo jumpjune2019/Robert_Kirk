@@ -19,7 +19,7 @@ public class Main {
 		MyLabel tempLabel;
 		for(LabelsEnum le : LabelsEnum.values()) {
 			tempLabel = new MyLabel();
-			myLabels[count] = tempLabel.setLabel(le.getLabel(), le.getPosition(), frm);
+			myLabels[count] = tempLabel.labelAdding.addLabel(le.returnLabel.stringTransfer(), le.returnPosition.stringTransfer(), frm);
 			count++;
 		}
 	}
@@ -41,7 +41,7 @@ public class Main {
 			
 			public void run() {
 				demo = new SwingDemo("Centered JFrame 400 by 200 with 5 labels");
-				frm = demo.getFrame();
+				frm = demo.distributing.getJFrame();
 				frm = setFrameStuff(frm, JFrame.EXIT_ON_CLOSE, 400, 200);
 				frm.setVisible(true);
 			}
