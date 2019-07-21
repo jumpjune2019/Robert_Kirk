@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="HeadOrTail-original/src"/>
+	<classpathentry kind="src" path="headortail-refactored/src"/>
+	<classpathentry kind="output" path="HeadOrTail-original/bin"/>
+</classpath>
