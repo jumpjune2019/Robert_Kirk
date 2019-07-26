@@ -3,7 +3,6 @@ package com.gridlayoutchallenge;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -108,12 +107,6 @@ public class ArrayDisplay extends JFrame implements ActionListener {
 
 		//displayArea.setCaretPosition(displayArea.getDocument().getLength());
 	}
-
-//	public  void addGrid(int rows, int cols) {
-//
-//		GridLayout grid = new GridLayout(rows, cols);
-//		//return addContent(grid, rows, cols);
-//	}
 
 	private void addContent(int rows, int cols) {
 		for(int i = 0; i<rows; i++) {
