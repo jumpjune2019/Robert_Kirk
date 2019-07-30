@@ -1,7 +1,6 @@
 package com.room;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Reservations {
@@ -47,7 +46,6 @@ public class Reservations {
 		res[0] = name;
 		res[1] = id;
 		res[2] = seat;
-		System.out.println(Arrays.toString(res));
 		this.listOfReservations.add(res);
 	}
 

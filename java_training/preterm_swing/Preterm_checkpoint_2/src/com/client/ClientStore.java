@@ -14,10 +14,6 @@ public class ClientStore {
 	private String filename;
 
 	public ClientStore(String f) {
-		// for now this is hardcoded, until
-		// we learn how to work with a combination of objects and arraylist
-		// dataStore = new Client[25];
-		dataCount = 0;
 		setFilename(f);
 		boolean success = loadClientFromFile(f);
 		if (!success) {
@@ -29,8 +25,6 @@ public class ClientStore {
 	// for now, this is internal to the method;
 	// will be used by loadClientFromFile() method
 	void addClient(Client client) {
-
-		//System.out.println(Arrays.toString(dataStore.toArray()));
 		dataStore.add(client);
 		dataCount++;
 	}
@@ -52,7 +46,7 @@ public class ClientStore {
 				record = fileLine.split(",");
 				Client client = new Client(record[1], record[2], Integer.parseInt(record[0]));
 				addClient(client);
-//  				System.out.println(fileLine);
+
 			}
 
 		} catch (IOException exc) {
