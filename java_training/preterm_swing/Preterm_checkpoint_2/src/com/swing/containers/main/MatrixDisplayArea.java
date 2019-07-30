@@ -29,45 +29,43 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 	// Model for allowing dynamic JList
 	DefaultListModel<String> dm = new DefaultListModel<String>();
 
-	//List that will be displayed to people
+	// List that will be displayed to people
 	JList<String> listOfClientNamesToBeDisplayed;
 
-	//Contains all names for creating and restoring the list of names in dm
+	// Contains all names for creating and restoring the list of names in dm
 	String[] clientNamesList;
-	
-	//Holds all clients to help create hash map
+
+	// Holds all clients to help create hash map
 	List<Client> store;
 
-	//Hash map that allows for client info to be located by name
+	// Hash map that allows for client info to be located by name
 	HashMap<String, Client> storeMap;
 
-	//Holds theatre grid
+	// Holds theatre grid
 	JPanel displayArea;
-	
-	//Holds title
+
+	// Holds title
 	JPanel titleArea;
 	JLabel title;
 
-	//Holds buttons to assign all and reset seats
+	// Holds buttons to assign all and reset seats
 	JPanel broadcastingArea;
 
-	//Holds client that has been selected
+	// Holds client that has been selected
 	Client stagedClient;
-	//Holds index of the clients name
+	// Holds index of the clients name
 	int stagedIndex;
 
-	//Displays JList
+	// Displays JList
 	JScrollPane scrollPaneOfClients;
 
-	//Holds the room object that creates the matrix and provides functionality for handling space in the room. 
+	// Holds the room object that creates the matrix and provides functionality for
+	// handling space in the room.
 	Room room;
-
-	final String newline = System.getProperty("line.separator");
 
 	public MatrixDisplayArea(String title, List<Client> clients) {
 		// Create a new JFrame container.
 		super(title);
-
 		this.store = clients;
 		this.createJList();
 
@@ -95,13 +93,11 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 
 	// Listener that will on list selection stage the selected client
 	ListSelectionListener listSelectionListener = new ListSelectionListener() {
-
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			String s = listOfClientNamesToBeDisplayed.getSelectedValue();
 			stageClient(s);
 			stagedIndex = e.getLastIndex();
-
 		}
 	};
 
@@ -109,16 +105,6 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 	// an array multiple times.
 	private void stageClient(String s) {
 		this.stagedClient = this.storeMap.get(s);
-	}
-
-	// Generate hash map
-	private HashMap<String, Client> generateMap(Client[] client, String[] name) {
-		HashMap<String, Client> clientMap = new HashMap<String, Client>();
-		for (int i = 0; i < client.length; i++) {
-			clientMap.put(name[i], client[i]);
-		}
-
-		return clientMap;
 	}
 
 	// Creates an array of names
@@ -140,6 +126,16 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		return store;
 	}
 
+	// Generate hash map created from the arrays above
+	private HashMap<String, Client> generateMap(Client[] client, String[] name) {
+		HashMap<String, Client> clientMap = new HashMap<String, Client>();
+		for (int i = 0; i < client.length; i++) {
+			clientMap.put(name[i], client[i]);
+		}
+
+		return clientMap;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO set new action for app button clicks
@@ -155,40 +151,43 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		} else if (s.equals("Assign All in List")) {
 			this.assignAll();
 		} else if (s.matches("[a-z,A-Z]-\\d+")) {
-
-			// Gets the source of the button
-			JButton pressed = (JButton) e.getSource();
-
-			// gets the parent panel then its parent panel then gain access to the panel
-			// containing the panel that needs to be changed
-			JPanel circuit = (JPanel) pressed.getParent().getParent().getComponent(0);
-
-			// Gain access to the label that needs to be changed
-			JLabel readout = (JLabel) circuit.getComponent(0);
-			try {
-				String[] idAndInit = readout.getText().split(" ");
-				String[] id = idAndInit[1].split("/");
-				int idNumb = Integer.valueOf(id[0]);
-				String nameKey = clientNamesList[idNumb - 1];
-
-				this.dm.addElement(nameKey);
-
-				readout.setText("Vacant");
-			} catch (Exception e2) {
-				if (readout.getText().equals("Vacant")) {
-					try {
-						this.assignClientSeat(this.stagedClient, readout);
-						int i = this.listOfClientNamesToBeDisplayed.getSelectedIndex();
-						dm.remove(i);
-					} catch (Exception e3) {
-						e3.printStackTrace();
-					}
-				} else {
-					readout.setText("Vacant");
-				}
-			}
+			this.processSeatingButtonClick(e);
 		} else {
 			System.out.println("tap");
+		}
+	}
+
+	private void processSeatingButtonClick(ActionEvent e) {
+		// Gets the source of the button
+		JButton pressed = (JButton) e.getSource();
+
+		// gets the parent panel then its parent panel then gain access to the panel
+		// containing the panel that needs to be changed
+		JPanel circuit = (JPanel) pressed.getParent().getParent().getComponent(0);
+
+		// Gain access to the label that needs to be changed
+		JLabel readout = (JLabel) circuit.getComponent(0);
+		try {
+			String[] idAndInit = readout.getText().split(" ");
+			String[] id = idAndInit[1].split("/");
+			int idNumb = Integer.valueOf(id[0]);
+			String nameKey = clientNamesList[idNumb - 1];
+
+			this.dm.addElement(nameKey);
+
+			readout.setText("Vacant");
+		} catch (Exception e2) {
+			if (readout.getText().equals("Vacant")) {
+				try {
+					this.assignClientSeat(this.stagedClient, readout);
+					int i = this.listOfClientNamesToBeDisplayed.getSelectedIndex();
+					dm.remove(i);
+				} catch (Exception e3) {
+					e3.printStackTrace();
+				}
+			} else {
+				readout.setText("Vacant");
+			}
 		}
 	}
 
@@ -203,11 +202,11 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 
 	// Displays room as vacant and refills displayed names
 	private void resetRoom() {
-		//clear list
+		// clear list
 		this.dm.removeAllElements();
-		//fill list back up
+		// fill list back up
 		this.dm.addAll(Arrays.asList(this.clientNamesList));
-		//set all seats to vacant
+		// set all seats to vacant
 		int[][] matrix = this.room.getMatrix();
 		int rows = this.room.getRows();
 		int index = matrix[0].length - 1;
@@ -231,24 +230,25 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 	// As an extra assignment I was told to create a button that
 	// auto assigns all clients randomly to a seat. This method does that
 	private void assignAll() {
-		//TODO SCOPE CREEP create means to randomly pick clients
+		// TODO SCOPE CREEP create means to randomly pick clients
 		// gets size of current model for JList
 		int j = dm.getSize();
 
 		// Loops through current model
 		for (int i = 0; i < j; i++) {
-			
-			// grabs name from list so we can access the hash map and get necessary info for label creation
+
+			// grabs name from list so we can access the hash map and get necessary info for
+			// label creation
 			String name = dm.get(i);
-			
+
 			// grabs random seat that is vacant from GUI
 			JLabel label = this.generateSeatValue();
-			
+
 			// If the seat is labeled vacant it can be taken and seated
-			//Will through null if the theatre is full of seats.
+			// Will through null if the theatre is full of seats.
 			try {
 				this.assignClientSeat(storeMap.get(name), label);
-			}catch (NullPointerException  e) {
+			} catch (NullPointerException e) {
 				break;
 			}
 		}
@@ -257,20 +257,20 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 	}
 
 	private JLabel generateSeatValue() {
-		//TODO need to create a means to detect if the theatre is completely full. and stop assignment
-		
-		//Controls loop to wait for a vacant seat to be found
+		// TODO need to create a means to detect if the theatre is completely full. and
+		// stop assignment
+
+		// Controls loop to wait for a vacant seat to be found
 		boolean notGoodSeat = true;
-		
+
 		while (notGoodSeat) {
-			
+
 			int[][] mat = this.room.getMatrix();
-			//Finds random seat
-			int seat = (int) (Math.random() * (this.displayArea.getAccessibleContext().
-					getAccessibleChildrenCount())
+			// Finds random seat
+			int seat = (int) (Math.random() * (this.displayArea.getAccessibleContext().getAccessibleChildrenCount())
 					+ mat[0].length);
 			if (seat % 11 != 0) {
-				//Gets seat
+				// Gets seat
 				try {
 					JPanel circuit = (JPanel) displayArea.getComponent(seat);
 					JPanel labelContainer = (JPanel) circuit.getComponent(0);
@@ -309,83 +309,87 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		titleArea.add(title, BorderLayout.CENTER);
 		titleArea.setPreferredSize(new Dimension(room.getCols() * 50, 40));
 
+		// create scroll pane to hold JList of unseated clients
 		JScrollPane scrollPane = new JScrollPane(displayArea);
-
-		// Creates ResetButton
-		JButton resetButton = cellButton("Reset All");
+		this.scrollPaneOfClients = new JScrollPane(this.listOfClientNamesToBeDisplayed);
 
 		// Creates area where buttons will be placed
 		broadcastingArea = new JPanel();
-		// adds reset button
+		broadcastingArea.setPreferredSize(new Dimension(room.getCols() * 50, 40));
+		
+		// Creates ResetButton
+		JButton resetButton = cellButton("Reset All");
+		// adds reset button to broadcastingArea panel
 		broadcastingArea.add(resetButton, BorderLayout.CENTER);
+
 		// Creates new button for Assigning all seats to all clients that have not been
 		// assigned a seat.
 		JButton assignAllBtn = cellButton("Assign All in List");
+		//add assignAllBtn to broadcastingArea panel
 		broadcastingArea.add(assignAllBtn);
-		broadcastingArea.setPreferredSize(new Dimension(room.getCols() * 50, 40));
+		
 
-		this.scrollPaneOfClients = new JScrollPane(this.listOfClientNamesToBeDisplayed);
 		// Adds all components to the JFrame
 		getContentPane().add(this.scrollPaneOfClients, BorderLayout.LINE_START);
 		getContentPane().add(titleArea, BorderLayout.NORTH);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		getContentPane().add(broadcastingArea, BorderLayout.SOUTH);
 	}
-	
-	//constructs cell
+
+	// constructs cell
 	private JPanel constructCell(int[][] matrix, int rowNum, int col) {
-		//gets if the seat is taken or not
+		// gets if the seat is taken or not
 		String labelText = isVacant(matrix, rowNum, col);
-		//sets button text
+		// sets button text
 		String buttonText = (char) (65 + rowNum) + "-" + (col + 1);
-		
-		//creates container for label
+
+		// creates container for label
 		JPanel labelContainer = new JPanel();
 		JLabel label = new JLabel(labelText);
 		// label.addPropertyChangeListener(propertyName, listener);
 		labelContainer.add(label, BorderLayout.CENTER);
-		
-		//creates container for button
+
+		// creates container for button
 		JPanel buttonContainer = new JPanel();
 
-		//creates button
+		// creates button
 		JButton button = this.cellButton(buttonText);
 		buttonContainer.add(button, BorderLayout.CENTER);
-		
-		//Sets Cells main panel to a grid type with preferred dimension to 50, 50
-		JPanel theatreGrid = new JPanel();
-		theatreGrid.setPreferredSize(new Dimension(50, 50));
 
-		theatreGrid.add(labelContainer);
-		theatreGrid.add(buttonContainer, BorderLayout.CENTER);
-		// sets layout to box layout that goes vertically #1 
-		theatreGrid.setLayout(new BoxLayout(theatreGrid, 1));
-		return theatreGrid;
+		// Sets Cells main panel to a grid type with preferred dimension to 50, 50
+		JPanel cellBox = new JPanel();
+		cellBox.setPreferredSize(new Dimension(50, 50));
+		cellBox.add(labelContainer);
+		cellBox.add(buttonContainer, BorderLayout.CENTER);
+		// sets layout to box layout that goes vertically #1
+		cellBox.setLayout(new BoxLayout(cellBox, 1));
+		
+		return cellBox;
 	}
 
 	private String isVacant(int[][] roomMatrix, int i, int j) {
-		//makes sell label vacant or seats a client
+		// makes sell label vacant or seats a client
 		if (roomMatrix[i + 1][j + 1] == 0) {
 			return "Vacant";
 		} else {
 			int x = roomMatrix[i][j];
-			String s = dm.get(x-1);
+			String s = dm.get(x - 1);
 			Client c = storeMap.get(s);
-			//Removes client from list
-			dm.remove(x-1);
-			return "id: " + x + "/"+c.createInitial();
-			
+			// Removes client from list
+			dm.remove(x - 1);
+			return "id: " + x + "/" + c.createInitial();
+
 		}
 	}
 
 	private void addContent(int[][] roomMatrix) {
 		for (int i = 0; i < roomMatrix.length; i++) {
 			for (int j = 0; j < roomMatrix[i].length; j++) {
-				//sets up columns and rows
+				// sets up columns and rows
 				if (i == 0 || j == 0) {
 					JPanel label = constructLabel(i, j, roomMatrix);
 					displayArea.add(label);
-				//sets up buttons
+					// sets up buttons
 				} else {
 					JPanel cell = constructCell(roomMatrix, i - 1, j - 1);
 					String labelText = ((char) (65 + i - 1)) + "-" + (j - 1);
@@ -394,14 +398,15 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 			}
 		}
 	}
-	//Creates labels for seating chart
+
+	// Creates labels for seating chart
 	private JPanel constructLabel(int i, int j, int[][] arr) {
-		//voids top left corner
+		// voids top left corner
 		if (i == 0 && j == 0) {
 			JPanel voidCorner = new JPanel();
 			voidCorner.setPreferredSize(new Dimension(50, 50));
 			return voidCorner;
-		//Sets seat numbering seats 1, 2, 3, 4, 5 ... -> n seats long
+			// Sets seat numbering seats 1, 2, 3, 4, 5 ... -> n seats long
 		} else if (i == 0) {
 			JPanel seatNumber = new JPanel();
 			seatNumber.setPreferredSize(new Dimension(50, 50));
@@ -411,7 +416,7 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 			label.setText(text);
 			seatNumber.add(label, BorderLayout.CENTER);
 			return seatNumber;
-		//Sets row names A, B, C, D ... -> Unicode 65+ lettering
+			// Sets row names A, B, C, D ... -> Unicode 65+ lettering
 		} else {
 			JPanel rowLetter = new JPanel();
 			rowLetter.setPreferredSize(new Dimension(50, 50));
@@ -426,8 +431,8 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 			return rowLetter;
 		}
 	}
-	
-	//creates JButtons for the seating process
+
+	// creates JButtons for the seating process
 	public JButton cellButton(String label) {
 		JButton jbtn = new JButton(label);
 		// Add action listeners.
