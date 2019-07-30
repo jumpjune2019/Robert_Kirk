@@ -46,8 +46,6 @@ public class Room extends Reservations {
 	}
 
 	public void makeRoom() {
-		// this.style.equals("none")
-		//System.out.println();
 		if (this.boxyStyle) {
 			// this.matrix = new int[this.rows][this.cols];
 			//Arrays.toString(this.matrix);
