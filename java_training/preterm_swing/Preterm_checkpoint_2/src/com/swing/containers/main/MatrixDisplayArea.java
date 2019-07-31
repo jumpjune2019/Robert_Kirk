@@ -1,6 +1,7 @@
 package com.swing.containers.main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -152,6 +153,8 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 			this.assignAll();
 		} else if (s.matches("[a-z,A-Z]-\\d+")) {
 			this.processSeatingButtonClick(e);
+		} else if (s.equals("Print All Reservations")) {
+			this.printAllSeatsReserved();
 		} else {
 			System.out.println("tap");
 		}
@@ -269,7 +272,7 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 			// Finds random seat
 			int seat = (int) (Math.random() * (this.displayArea.getAccessibleContext().getAccessibleChildrenCount())
 					+ mat[0].length);
-			if (seat % 11 != 0) {
+			if (seat % this.room.getCols() != 0) {
 				// Gets seat
 				try {
 					JPanel circuit = (JPanel) displayArea.getComponent(seat);
@@ -316,18 +319,26 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		// Creates area where buttons will be placed
 		broadcastingArea = new JPanel();
 		broadcastingArea.setPreferredSize(new Dimension(room.getCols() * 50, 40));
-		
+
 		// Creates ResetButton
 		JButton resetButton = cellButton("Reset All");
 		// adds reset button to broadcastingArea panel
 		broadcastingArea.add(resetButton, BorderLayout.CENTER);
 
+		// Creates new button for printing all reservations in the room
+		JButton printBtn = cellButton("Print All Reservations");
+		// add printBtn to broadcastingArea panel
+		broadcastingArea.add(printBtn);
+		
 		// Creates new button for Assigning all seats to all clients that have not been
 		// assigned a seat.
 		JButton assignAllBtn = cellButton("Assign All in List");
-		//add assignAllBtn to broadcastingArea panel
+		// add assignAllBtn to broadcastingArea panel
 		broadcastingArea.add(assignAllBtn);
-		
+
+
+
+		// Print All Reservations
 
 		// Adds all components to the JFrame
 		getContentPane().add(this.scrollPaneOfClients, BorderLayout.LINE_START);
@@ -363,7 +374,7 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		cellBox.add(buttonContainer, BorderLayout.CENTER);
 		// sets layout to box layout that goes vertically #1
 		cellBox.setLayout(new BoxLayout(cellBox, 1));
-		
+
 		return cellBox;
 	}
 
@@ -439,6 +450,57 @@ public class MatrixDisplayArea extends JFrame implements ActionListener {
 		jbtn.addActionListener(this);
 		// Add the buttons to the content pane.
 		return jbtn;
+	}
+
+	private void printAllSeatsReserved() {
+		// set all seats to vacant
+		System.out.println("Printing reservations. Standby\n");
+		int[][] matrix = this.room.getMatrix();
+		int rows = this.room.getRows();
+		int index = matrix[0].length - 1;
+		//name column width 30
+		// id column length = 4
+		System.out.println("Name" + getSpaces(30,4) + "ID" + getSpaces(4,2) + "Seat\n");
+		for (int i = 1; i < rows; i++) {
+
+			index += 1;
+			int[] row = matrix[i];
+			int len = row.length;
+			for (int j = 1; j < len; j++) {
+				index += 1;
+	
+				JPanel circuit = (JPanel) displayArea.getComponent(index);
+				JPanel labelContainer = (JPanel) circuit.getComponent(0);
+				JLabel label = (JLabel) labelContainer.getComponent(0);
+				JPanel buttonContainer = (JPanel) circuit.getComponent(1);
+				JButton button = (JButton) buttonContainer.getComponent(0);
+
+				String seat = label.getText();
+				if (seat.matches("(id:) \\d+/\\w+")) {
+					seat = seat.replaceAll("\\D", "").trim();					
+					Integer idNum;
+					String clientName;
+					try {
+						idNum = Integer.parseInt(seat);
+						clientName = this.clientNamesList[idNum - 1];
+						System.out.println(clientName + getSpaces(30,clientName.length()) + idNum + getSpaces(4,seat.length()) + button.getText());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+			}
+
+		}
+
+	}
+
+	private String getSpaces(int i, int j) {
+		String s = "";
+		for(int spaces = 0; spaces<(i-j); spaces++) {
+			s+= " ";
+		}
+		return s;
 	}
 
 }
